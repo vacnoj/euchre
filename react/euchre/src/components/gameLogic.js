@@ -215,6 +215,10 @@ console.log("Trump is: ", trump);
     }   
 }
 
+function roundOne() {
+
+}
+
 makeDeck(); //creates the cards 9-ace in every suit
 
 makePlayers();//uses a constructor function to create 4 players
@@ -224,37 +228,39 @@ nextDealer(); // uses some calculations to rotate between 4 different dealers st
 dealCards(); // gives each player 5 cards
 
 setTrump(); //prompts the players to decide if they want trumpCard to be trump or they want to pick
+console.log(players);
 
+// $(document).ready(function() {
+//     $("#player1").append(`<img id='p1c1' src='${player1.card1.image}'></img>`);
+//     $("#player1").append(`<img id='p1c2' src='${player1.card2.image}'></img>`);
+//     $("#player1").append(`<img id='p1c3' src='${player1.card3.image}'></img>`);
+//     $("#player1").append(`<img id='p1c4' src='${player1.card4.image}'></img>`);
+//     $("#player1").append(`<img id='p1c5' src='${player1.card5.image}'></img>`);
 
-$(document).ready(function() {
-    $("#player1").append(`<img src='${player1.card1.image}'></img>`);
-    $("#player1").append(`<img src='${player1.card2.image}'></img>`);
-    $("#player1").append(`<img src='${player1.card3.image}'></img>`);
-    $("#player1").append(`<img src='${player1.card4.image}'></img>`);
-    $("#player1").append(`<img src='${player1.card5.image}'></img>`);
+//     // $("#player2").append(`<img src='${player2.card1.image}'></img>`);
+//     // $("#player2").append(`<img src='${player2.card3.image}'></img>`);
+//     // $("#player2").append(`<img src='${player2.card2.image}'></img>`);
+//     // $("#player2").append(`<img src='${player2.card4.image}'></img>`);
+//     // $("#player2").append(`<img src='${player2.card5.image}'></img>`);
 
-    // $("#player2").append(`<img src='${player2.card1.image}'></img>`);
-    // $("#player2").append(`<img src='${player2.card3.image}'></img>`);
-    // $("#player2").append(`<img src='${player2.card2.image}'></img>`);
-    // $("#player2").append(`<img src='${player2.card4.image}'></img>`);
-    // $("#player2").append(`<img src='${player2.card5.image}'></img>`);
+//     // $("#player3").append(`<img src='${player3.card1.image}'></img>`);
+//     // $("#player3").append(`<img src='${player3.card2.image}'></img>`);
+//     // $("#player3").append(`<img src='${player3.card3.image}'></img>`);
+//     // $("#player3").append(`<img src='${player3.card4.image}'></img>`);
+//     // $("#player3").append(`<img src='${player3.card5.image}'></img>`);
 
-    // $("#player3").append(`<img src='${player3.card1.image}'></img>`);
-    // $("#player3").append(`<img src='${player3.card2.image}'></img>`);
-    // $("#player3").append(`<img src='${player3.card3.image}'></img>`);
-    // $("#player3").append(`<img src='${player3.card4.image}'></img>`);
-    // $("#player3").append(`<img src='${player3.card5.image}'></img>`);
-
-    // $("#player4").append(`<img src='${player4.card1.image}'></img>`);
-    // $("#player4").append(`<img src='${player4.card2.image}'></img>`);
-    // $("#player4").append(`<img src='${player4.card3.image}'></img>`);
-    // $("#player4").append(`<img src='${player4.card4.image}'></img>`);
-    // $("#player4").append(`<img src='${player4.card5.image}'></img>`);
+//     // $("#player4").append(`<img src='${player4.card1.image}'></img>`);
+//     // $("#player4").append(`<img src='${player4.card2.image}'></img>`);
+//     // $("#player4").append(`<img src='${player4.card3.image}'></img>`);
+//     // $("#player4").append(`<img src='${player4.card4.image}'></img>`);
+//     // $("#player4").append(`<img src='${player4.card5.image}'></img>`);
     
-    $("#deck").append(`<img src='${trumpCard.image}'></img>`);
+//     $("#deck").append(`<img src='${trumpCard.image}'></img>`);
 
-    $('#trump').append(`<img src='${trump.image}'></img>`);
+//     $('#trump').append(`<img src='${trump.image}'></img>`);
     
-});
+// });
 
 //socket.io
+
+export {player1, trumpCard};
