@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import LoginPage from './LoginPage';
-import { player1, trumpCard } from './gameLogic'
+import { player1, trumpCard } from '../gameLogic'
 // import default from '../App';
 
 function DealerCheck() {
@@ -23,7 +23,7 @@ class Player1 extends Component {
  
    render() {
 
-    if (this.state.isLoggedIn) {
+    if (!this.state.isLoggedIn) {
       return (<LoginPage />);
   } else {
     
@@ -33,19 +33,19 @@ class Player1 extends Component {
           <Header />
           <div className="row">
           <img
-            src={player1.card1.image}
+            src={player1.card1.image} alt="Card failed to Load"
           />
           <img
-            src={player1.card2.image}
+            src={player1.card2.image} alt="Card failed to Load"
           />
           <img
-            src={player1.card3.image}
+            src={player1.card3.image} alt="Card failed to Load"
           />
           <img
-            src={player1.card4.image}
+            src={player1.card4.image} alt="Card failed to Load"
           />
           <img
-            src={player1.card5.image}
+            src={player1.card5.image} alt="Card failed to Load"
           />
           </div>
           <h2>Do you want this to be trump?</h2>

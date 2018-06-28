@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LoginPage from './LoginPage';
 import UserGreeting from './UserGreeting';
 
 
@@ -10,10 +9,21 @@ class Header extends Component {
     }
       
    render() {
+    if (window.location.pathname === '/' || window.location.pathname === '/login') {
+        return (
+            <nav>
+                <div className="nav-wrapper blue">
+                    <a href="/" className="brand-logo center">Euchre!</a>
+                    <ul id="nav-mobile" className="left hide-on-med-and-down">
+                    </ul>
+                </div>
+            </nav>
+        );
+      } else
       return (
         <nav>
             <div className="nav-wrapper blue">
-                <a href="#" className="brand-logo center">Euchre!</a>
+                <a href="/" className="brand-logo center">Euchre!</a>
                 <ul id="nav-mobile" className="left hide-on-med-and-down">
                 <UserGreeting />
                 </ul>
