@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import LoginPage from './LoginPage';
 import { player1, trumpCard } from './gameLogic'
 // import default from '../App';
 
 function DealerCheck() {
   if (player1.isDealer) {
-    return  <a className="waves-effect waves btn">I'll Pick it up</a>;
-  } else return <a className="waves-effect waves btn">You can pick it up</a>;
+    return  <a id="call-up-button" onClick={setTrump} className="waves-effect waves btn">I'll Pick it up</a>;
+  } else return <a id="call-up-button" onClick={setTrump} className="waves-effect waves btn">You can pick it up</a>;
 }
 
+function setTrump() {
+  alert('hi');
+}
 class Player1 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: true
+    }
+  }
+ 
    render() {
+
+    if (this.state.isLoggedIn) {
+      return (<LoginPage />);
+  } else {
+    
       return (
         
          <div className = "container">
@@ -48,6 +64,7 @@ class Player1 extends Component {
          </div>
       );
    }
+  }
 }
 
 export default Player1;

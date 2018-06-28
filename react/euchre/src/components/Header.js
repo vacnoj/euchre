@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-// import default from '../App';
+import LoginPage from './LoginPage';
+import UserGreeting from './UserGreeting';
+
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {createAccount: false};
+    }
+      
    render() {
       return (
         <nav>
             <div className="nav-wrapper blue">
                 <a href="#" className="brand-logo center">Euchre!</a>
                 <ul id="nav-mobile" className="left hide-on-med-and-down">
-                <li><a className="waves-effect waves-light btn modal-trigger" href="#createAccountModal">Create Account</a></li>
+                <UserGreeting />
                 </ul>
             </div>
         </nav>

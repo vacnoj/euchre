@@ -263,4 +263,4 @@ console.log(players);
 
 //socket.io
 
-export {player1, trumpCard};
+export {player1, player2, player3, player4, trumpCard};
