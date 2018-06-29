@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
-import Player1 from '../pages/Player1';
-var player;
 
 class SelectPlayer extends Component {
     
     render() {
-        const routePlayer1 = () => {
-            ReactDOM.render(
-                <Player1 />,
-                document.getElementById('root')
-            );
-        }
+        
     return (
 
         <div className="row">

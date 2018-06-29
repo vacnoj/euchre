@@ -3,6 +3,8 @@
 var euchreDeck = {
 }
 
+//creates a blank card
+var blankCard = new Card("blank", "null", "null", 'cardDeck/blank.png', "null", false);
 // array that will store the players
 var players;
 var player1, player2, player3, player4;
@@ -19,7 +21,7 @@ var trump = {
 
 // variable that will decide if this is the first hand
 var firstHand = true;
-var dealerCounter, dealerInterator;
+var dealerCounter, dealerIterator;
 
 // constructor that will make a card.
 function Card(name, suit, value, image, color, played) {
@@ -31,6 +33,22 @@ function Card(name, suit, value, image, color, played) {
     this.played = false;
 }
 
+//initialize firebase
+
+var firebase = require("firebase");
+
+var config = {
+    apiKey: "AIzaSyDn-qoSGYwgoHaraZPyQ-WAEcDeQVJ7VQM",
+    authDomain: "euchre-jktp.firebaseapp.com",
+    databaseURL: "https://euchre-jktp.firebaseio.com",
+    projectId: "euchre-jktp",
+    storageBucket: "euchre-jktp.appspot.com",
+    messagingSenderId: "232950785594"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
 // ===========================================================================================
 
 //this function makes a deck of Euchre cards. It will interate 9-ace (ace = 14) in each suit and make
@@ -41,7 +59,7 @@ function makeDeck() {
     var suit = ['c', 's', 'd', 'h'];
     for (var n  = 0; n < name.length; n++) {
         for(var s = 0; s < suit.length; s++) {
-            var newCard = new Card(name[n], suit[s], parseInt(name[n]), `cardDeck/${name[n]}${suit[s]}.png`); 
+            var newCard = new Card(name[n], suit[s], parseInt(name[n], 10), `cardDeck/${name[n]}${suit[s]}.png`); 
             if (suit[s] === 'c' || suit[s] === 's') {
                 newCard.color = "black";
             } else newCard.color = "red";
@@ -62,29 +80,39 @@ function makePlayers() {
         this.card4 = card4;
         this.card5 = card5;
         this.isDealer = false;
+        this.isPickingTrump = false;
     }
 
-    player1 = new Player("Jon", 1);
-    player2 = new Player("Tim", 2);
-    player3 = new Player("Patti", 3);
-    player4 = new Player("Kristi", 4);
+    player1 = new Player("Patti", 1, null, null, null, null, null);
+    player2 = new Player("Tim", 2, null, null, null, null, null);
+    player3 = new Player("Kristi", 3, null, null, null, null, null);
+    player4 = new Player("Jon", 4, null, null, null, null, null);
 
     players = [player1, player2, player3, player4];
+
 }
 
 // function that will create a dealer and rotate who is dealer
-function nextDealer() {
+function selectDealer() {
     
     if (firstHand) {
-        dealerInterator = Math.floor(Math.random()*4);
-        dealerCounter = dealerInterator % 4;
+        //pick a random number between 1 and 4 to decide which index will start as dealer
+        dealerIterator = Math.floor(Math.random()*4);
+        // the dealerCounter is equal to the remainder of iterator / 4 so that it will repeat
+        // between 0-3 which are the indexes of the 4 players
+        dealerCounter = dealerIterator % 4;
+        // this sets the player at the index that was selected as the dealer
         players[dealerCounter].isDealer = true;
+        // this sets the player left of dealer to pick trump first
+        players[(dealerIterator+1) % 4].isPickingTrump = true;
+        // this sets the firstHand variable to false so that a new dealer isnt selected out of order. 
         firstHand = false;
     } else {
-        dealerInterator++;
+        dealerIterator++;
         players[dealerCounter].isDealer = false;
-        dealerCounter = dealerInterator % 4;
+        dealerCounter = dealerIterator % 4;
         players[dealerCounter].isDealer = true;
+        players[(dealerIterator+1) % 4].isPickingTrump = true;
     }    
 }
 
@@ -121,6 +149,7 @@ function dealCards() {
                 case 4:
                     players[i].card5 = euchreDeck[notPicked[randomNumber]];
                    break;
+                default: console.log("error with dealCards() @ Line 92 gameLogic.js");
             }
             // after the card has been assigned, it is removed from the not picked array
             notPicked.splice(randomNumber, 1);
@@ -161,6 +190,7 @@ function setTrump() {
             case 'd':
                 trump.image = "images/diamond.ico"
                 break;
+            default: console.log("error with setTrump() @ Line 143 gameLogic.js");
         }
     // } else {
         // prompt to pick what trump is based on the other 3 being available
@@ -169,66 +199,146 @@ console.log("Trump is: ", trump);
 
 // ====================================Still working above ===========================================
 
+    //This block of code will print out all the trump cards that are dealt for testing purposes
     for(let i = 0; i < players.length; i++) {
     
         if (players[i].card1.suit === trump.suit) {
             console.log(players[i].card1);
-            // sixTrump++;
+            
         }
         if (players[i].card2.suit === trump.suit) {
             console.log(players[i].card2);
-            // sixTrump++;
+            
         }
         if (players[i].card3.suit === trump.suit) {
             console.log(players[i].card3);
-            // sixTrump++;
+            
         }
         if (players[i].card4.suit === trump.suit) {
             console.log(players[i].card4);
-            // sixTrump++;
+            
         }
         if (players[i].card5.suit === trump.suit) {
             console.log(players[i].card5);
-            // sixTrump++;
+            
         }
 
         if (players[i].card1.color === trump.color && players[i].card1.name === "11" && players[i].card1.suit !== trump.suit) {
                 console.log(players[i].card1);
-            // sixTrump++;
+            
         }
         if (players[i].card2.color === trump.color && players[i].card2.name === "11" && players[i].card2.suit !== trump.suit) {
                 console.log(players[i].card2);
-            // sixTrump++;
+            
         }
         if (players[i].card3.color === trump.color && players[i].card3.name === "11" && players[i].card3.suit !== trump.suit) {
                 console.log(players[i].card3);
-            // sixTrump++;
+            
         }
         if (players[i].card4.color === trump.color && players[i].card4.name === "11" && players[i].card4.suit !== trump.suit) {
                 console.log(players[i].card4);
-            // sixTrump++;
+            
         }
         if (players[i].card5.color === trump.color && players[i].card5.name === "11" && players[i].card5.suit !== trump.suit) {
                 console.log(players[i].card5);
-            // sixTrump++;
+            
         }
     }   
+
+    //=========================================================================================================================
 }
 
-function roundOne() {
-
+function sendPlayersToDB(player1, player2, player3, player4) {
+    database.ref('players/').set({
+        player1: player1,
+        player2: player2,
+        player3: player3,
+        player4: player4
+    });
 }
 
+function sendCardsToDB() {
+    database.ref('players/').child('player1').update({
+        card1: player1.card1,
+        card2: player1.card2,
+        card3: player1.card3,
+        card4: player1.card4,
+        card5: player1.card5
+    });
+    database.ref('players/').child('player2').update({
+        card1: player2.card1,
+        card2: player2.card2,
+        card3: player2.card3,
+        card4: player2.card4,
+        card5: player2.card5
+    });
+    database.ref('players/').child('player3').update({
+        card1: player3.card1,
+        card2: player3.card2,
+        card3: player3.card3,
+        card4: player3.card4,
+        card5: player3.card5
+    });
+    database.ref('players/').child('player4').update({
+        card1: player4.card1,
+        card2: player4.card2,
+        card3: player4.card3,
+        card4: player4.card4,
+        card5: player4.card5
+    });
+}
+
+function sendTrumpCardToDB() {
+    database.ref('trump/').set({
+        trumpCard: trumpCard
+    });
+}
+
+// function roundOne() {
+
+// }
+
+function beforeGame() {
+    makeDeck();
+    makePlayers();
+    selectDealer();
+    sendPlayersToDB(player1, player2, player3, player4);
+}
+function beginGame() {
+    dealCards();
+    sendTrumpCardToDB();
+    // setTrump();
+    sendCardsToDB();
+}
+
+if(document.getElementById("beginGame")) {
+    document.getElementById("beginGame").onclick(function() {
+    beginGame();
+})
+}
+beforeGame();
+beginGame();
+
+/*
 makeDeck(); //creates the cards 9-ace in every suit
 
 makePlayers();//uses a constructor function to create 4 players
 
-nextDealer(); // uses some calculations to rotate between 4 different dealers starting with a rando
+selectDealer(); // uses some calculations to rotate between 4 different dealers starting with a rando
 
 dealCards(); // gives each player 5 cards
 
 setTrump(); //prompts the players to decide if they want trumpCard to be trump or they want to pick
 console.log(players);
 
+sendPlayersToDB(player1, player2, player3, player4); // this passes in the 4 players created and sends them to firebase
 
-export {player1, player2, player3, player4, trumpCard};
+sendTrumpCardToDB(); // this will send the trump card in question to firebase
+    
+sendCardsToDB(); // this will send the cards to the players in the database
+
+
+*/
+
+
+export {player1, player2, player3, player4, trumpCard, firebase, database, blankCard};

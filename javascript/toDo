@@ -1,3 +1,7 @@
 first: create a player one page, a welcome page, and components separate from the pages. 
 
 find out which database you want to use and how you want to display everything. Also figure out how to call the gameLogic.js
+
+add player names to Player pages
+
+

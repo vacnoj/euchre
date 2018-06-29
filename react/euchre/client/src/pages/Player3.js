@@ -53,7 +53,7 @@ class Player1 extends Component {
           <div className="row">
 
           <img
-            src={trumpCard.image}
+            src={trumpCard.image} alt="Card failed to Load"
           />
 
           </div>

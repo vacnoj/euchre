@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header';
 import Welcome from './pages/Welcome';
 import Player1 from './pages/Player1';
 import Player2 from './pages/Player2';
