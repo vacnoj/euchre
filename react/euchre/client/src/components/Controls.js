@@ -1,4 +1,5 @@
 import React from 'react';
+import { beginGame } from '../gameLogic'
 
 
 const PickItUp = () => {
@@ -19,7 +20,7 @@ const Pass = () => {
 
 const BeginGameButton = () => {
     return(
-        <a id="beginGame" className="waves-effect waves btn">Ready</a>
+        <a id="beginGame" onClick={beginGame} className="waves-effect waves btn">Ready</a>
     )
 }
 

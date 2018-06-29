@@ -309,13 +309,10 @@ function beginGame() {
     sendTrumpCardToDB();
     // setTrump();
     sendCardsToDB();
+    console.log("The game has begun!");
 }
 
-if(document.getElementById("beginGame")) {
-    document.getElementById("beginGame").onclick(function() {
-    beginGame();
-})
-}
+
 beforeGame();
 beginGame();
 
@@ -341,4 +338,4 @@ sendCardsToDB(); // this will send the cards to the players in the database
 */
 
 
-export {player1, player2, player3, player4, trumpCard, firebase, database, blankCard};
+export {player1, player2, player3, player4, trumpCard, firebase, database, blankCard, beginGame};
